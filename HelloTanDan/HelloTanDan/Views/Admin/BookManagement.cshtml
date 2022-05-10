@@ -1,0 +1,228 @@
+﻿@model List<DBProvider1.SACH>
+@{
+    ViewBag.Title = "BookManagement";
+    Layout = "~/Views/MyLayout/BackEndLayout.cshtml";
+}
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="~/theme/css/table.css" rel="stylesheet" />
+<script src="~/theme/js/table.js"></script>
+<link href="~/theme/css/form.css" rel="stylesheet" />
+<div class="table-wrapper-book">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-8"><h2>Danh sách <b>Sách</b></h2></div>
+            <div class="col-sm-4">
+                <button type="button" id="button-popup" class="btn btn-info add-new"><i class="fa fa-plus"></i>Thêm mới</button>
+            </div>
+            <div class="popup-book">
+                <div class="popup-content">
+                    <h3 id="title">Thêm mới Sách</h3>
+                    <input type="text" id="txtTenS" placeholder="Nhập Tên Sách" />
+                    <div class="select-form">
+                        <p><label for="title tentg">Chọn tác giả:</label></p>
+                        <select name="TenTG" id="slMaTG" placeholder=" Chọn Mã Tác Giả">
+                            <option value="TG01">TG01</option>
+                        </select>
+                        <p><label for="tile tentl">Chọn thể loại:</label></p>
+                        <select name="TenTL" id="slMaTL" placeholder=" Chọn Mã Thể Loại">
+                            <option value="TL01">TL01</option>
+                            <option value="TL02">TL02</option>
+                        </select>
+                    </div>
+                    <input type="text" id="txtNXB" placeholder="Nhập Tên Nhà Xuất Bản" />
+                    <input type="text" id="txtGia" placeholder="Nhập giá bán lẻ" />
+                    <input type="text" id="txtGiaKM" placeholder="Nhập giá khuyến mãi" />
+                    <textarea id="textarea_image" rows="3" cols="50" placeholder="Nhập link ảnh bìa tại đây..."></textarea>
+                    <div class="action">
+                        <div style="display: contents;" onclick="ChangeModeBook()"><a href="#" class="button-add-category">Lưu lại</a></div>
+                        <a href="#" class="button-cancel">Hủy</a>
+                        <p id="message" style="color: red; padding:5px; border:1px solid #4cff00; display:none; width: max-content;margin-top: 15px;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <tr>
+            <th style="width: 40%;">Tên sách</th>
+            <th>Mã tác giả</th>
+            <th>Mã thể loại</th>
+            <th>Ngày xuất bản</th>
+            <th>Giá bán</th>
+            <th>Giá khuyến mãi</th>
+            <th>Ảnh bìa</th>
+            <th>Thao tác</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr id="td_@item.MaS">
+                <td id="b_tens">@item.TenS</td>
+                <td id="b_matg">@item.MaTG</td>
+                <td id="b_matl">@item.MaTL</td>
+                <td id="b_nxb">@item.NXB</td>
+                <td id="b_gia">@item.Gia</td>
+                <td id="b_giakm">@item.GIAKM</td>
+                <td id="b_anhbia"><div id="linkimage">@item.ANH</div></td>
+                <td class="icon">
+                    <div class="edit" title="Sửa" data-toggle="tooltip" onclick="PushInf('@item.MaS','@item.TenS','@item.MaTG','@item.MaTL','@item.NXB','@item.Gia','@item.GIAKM','@item.ANH')"><i class="material-icons"></i></div>
+                    <div class="delete" title="Xóa" data-toggle="tooltip" onclick="DelCategory('@item.MaS','@item.TenS')"><i class="material-icons"></i></div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<script>
+    document.getElementById("button-popup").addEventListener("click", function () {
+        document.querySelector(".popup-book").style.display = "flex";
+    })
+    document.querySelector(".button-cancel").addEventListener("click", function () {
+        document.querySelector(".popup-book").style.display = "none";
+    })
+    flag = false;
+    var IDS = '';
+    //Thêm sách sử dụng AJAX
+    function AddNewBook() {
+        //Kiểm tra các trường dữ liệu
+        //***Thêm mới thể loại sách***
+        //Kiểm tra các trường dữ liệu
+        var TenS = $('#txtTenS').val();
+        var MaTG = $('#slMaTG option:selected').text();
+        var MaTL = $('#slMaTL option:selected').text();
+        var NXB = $('#txtNXB').val();
+        var Gia = $('#txtGia').val();
+        var GiaKM = $('#txtGiaKM').val();
+        var LinkImage = $('#textarea_image').val();
+        if (TenS == '' || MaTG == '' || MaTL == '' || NXB == '' || Gia == '' || GiaKM == '' || LinkImage == '') {
+            $('#message').html("Vui lòng nhập đầy đủ thông tin !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        //Sử dụng AJAX
+        var form = new FormData();
+        form.append("TENS", TenS);
+        form.append("MATG", MaTG);
+        form.append("MATL", MaTL);
+        form.append("NXB", NXB);
+        form.append("GIA", Gia);
+        form.append("GIAKM", GiaKM);
+        form.append("LINKIMAGE", LinkImage);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'AddBook', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var content = xhr.responseText;
+                var json_content = JSON.parse(content);
+                if (json_content.Data.status == "OK") {
+                    //Thêm dữ liệu lên giao diện
+                    var action = `<div class="edit" title="Sửa" data-toggle="tooltip" onclick="PushInf('${json_content.Data.strMAS}','${TenS}','${MaTG}','${MaTL}','${NXB}','${Gia}','${GiaKM}','${LinkImage}')"><i class="material-icons"></i></div><div class="delete" title="Xóa" data-toggle="tooltip" onclick="DelCategory('${json_content.Data.strMAS}','${TenS}')"><i class="material-icons"></i></div>`;
+                    var row = `<tr id="td_${json_content.Data.strMAS}"><td>${TenS}</td><td></td><td>${MaTG}</td><td>${MaTL}</td><td>${NXB}</td><td>${GiaKM}</td><td>${LinkImage}</td><td class="icon">${action}</td></tr>`;
+                    $('table').append(row);
+                    //Thông báo khi thêm thành công
+                    alert("Thêm sách thành công !");
+                    //Xóa trắng form
+                    $('#txtTenS').val('');
+                    $('#txtNXB').val('');
+                    $('#txtGia').val('');
+                    $('#txtGiaKM').val('');
+                    $('#textarea_image').val('');
+                }
+                else {
+                    $('#message').html(json_content).css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+                }
+            }
+        }
+        xhr.send(form);
+    }
+    //***Cập nhật sách***
+    //Mở form sửa và Đổ dữ liệu lên form để sửa
+    function PushInf(MaS,TenS,MaTG, MaTL,NXB,Gia,GiaKM,LinkImage) {
+        flag = true;
+        document.querySelector(".popup-book").style.display = "flex";
+        $('#title').html('Sửa Thông Tin Sách');
+        $('#txtTenS').val(TenS);
+        $('#slMaTG option:selected').text(MaTG);
+        $('#slMaTL option:selected').text(MaTL);
+        $('#txtNXB').val(NXB);
+        $('#txtGia').val(Gia);
+        $('#txtGiaKM').val(GiaKM);
+        $('#textarea_image').val(LinkImage);
+        document.querySelector(".button-cancel").style.display = "none";
+        IDS = MaS;
+    }
+    function ChangeModeBook() {
+        if (flag) {
+            SaveEditBook();
+        }
+        else {
+            AddNewBook();
+        }
+    }
+    // Lưu thay đổi dữ liệu vừa sửa
+    function SaveEditBook() {
+        //Kiểm tra các trường dữ liệu
+        var TenS = $('#txtTenS').val();
+        var MaTG = $('#slMaTG option:selected').text();
+        var MaTL = $('#slMaTL option:selected').text();
+        var NXB = $('#txtNXB').val();
+        var Gia = $('#txtGia').val();
+        var GiaKM = $('#txtGiaKM').val();
+        var LinkImage = $('#textarea_image').val();
+        if (TenS == '' || MaTG == '' || MaTL == '' || NXB == '' || Gia == '' || GiaKM == '' || LinkImage == '') {
+            $('#message').html("Vui lòng nhập đầy đủ thông tin !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        //Sử dụng AJAX
+        var form = new FormData();
+        form.append("MAS", IDS)
+        form.append("TENS", TenS);
+        form.append("MATG", MaTG);
+        form.append("MATL", MaTL);
+        form.append("NXB", NXB);
+        form.append("GIA", Gia);
+        form.append("GIAKM", GiaKM);
+        form.append("LINKIMAGE", LinkImage);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'EditBook', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var content = xhr.responseText;
+                var json_content = JSON.parse(content);
+                if (json_content.Data.status == "OK") {
+                    //Cập nhật hiển thị lên table view
+                    $('#td_' + IDS + ' #b_tens').html(TenS);
+                    $('#td_' + IDS + ' #b_matg').html(MaTG);
+                    $('#td_' + IDS + ' #b_matl').html(MaTL);
+                    $('#td_' + IDS + ' #b_nxb').html(NXB);
+                    $('#td_' + IDS + ' #b_gia').html(Gia);
+                    $('#td_' + IDS + ' #b_giakm').html(GiaKM);
+                    $('#td_' + IDS + ' #b_anhbia').html(LinkImage);
+                    //Thông báo khi cập nhật thành công
+                    alert("Cập nhật thành công !");
+                    //Xóa trắng form
+                    $('#txtTenS').val('');
+                    $('#txtNXB').val('');
+                    $('#txtGia').val('');
+                    $('#txtGiaKM').val('');
+                    $('#textarea_image').val('');
+                    flag = false;
+                    $('#title').html('Thêm mới Sách');
+                    $('.button-cancel').css({ 'display': '' });
+                    document.querySelector(".popup-book").style.display = "none";
+                }
+                else {
+                    $('#message').html(json_content).css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+                }
+            }
+        }
+        xhr.send(form);
+    }
+</script>

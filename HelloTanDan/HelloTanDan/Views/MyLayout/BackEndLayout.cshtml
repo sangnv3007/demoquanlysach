@@ -1,0 +1,70 @@
+﻿<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="~/theme/css/backend.css" rel="stylesheet" />
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid" style="display:block">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                ADMIN DEMO QUẢN LÝ SÁCH
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" method="GET" role="search">
+                <div class="form-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search" style="margin:0px;">
+                </div>
+                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+            </form>
+            <ul class="nav navbar-nav navbar-right" style="display:block">
+                <li><a href="~/" target="_blank">Về trang chủ</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        Tài khoản
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="~/Admin/Logout" class="nav" id="logout">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid main-container">
+    <div class="col-md-2 sidebar">
+        <div class="row">
+            <!-- uncomment code for absolute positioning tweek see top comment in css -->
+            <div class="absolute-wrapper"> </div>
+            <!-- Menu -->
+            <div class="side-menu">
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- Main Menu -->
+                    <div class="side-menu-container">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="~/Admin/CategoryManagement"><span class="glyphicon glyphicon-dashboard"></span> Quản lý chuyên mục </a></li>
+                            <li><a href="~/Admin/AuthorManagement"><span class="glyphicon glyphicon-plane"></span> Quản lý tác giả </a></li>
+                            <li><a href="~/Admin/BookManagement"><span class="glyphicon glyphicon-cloud"></span> Quản lý sách </a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 content">
+        @RenderBody()
+    </div>
+    <footer class="pull-left footer">
+        <p class="col-md-12">
+            <hr class="divider">
+            Design by <a href="#">sang_nv</a>
+        </p>
+    </footer>
+</div>
+<script>
+    $('.dropdown-toggle').html("Xin chào @ViewBag.FullName");
+</script>

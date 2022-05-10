@@ -1,0 +1,223 @@
+﻿@model List<DBProvider1.NHANVIEN>
+@{
+    ViewBag.Title = "Index2";
+    Layout = "~/Views/MyLayout/FrontEndLayout.cshtml";
+}
+<style>
+    .formadd {
+        border: 2px solid black;
+        padding: 5px;
+        margin: 5px;
+    }
+</style>
+<h2>All Users</h2>
+<table border="1" cellpadding="10" id="UserList">
+    <tr>
+        <th>Mã nhân viên</th>
+        <th>Họ và Tên</th>
+        <th>Số điện thoại</th>
+        <th>Password</th>
+        <th>Địa chỉ</th>
+        <th>Quyền</th>
+        <th>Thao tác</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr id="td_@item.IDNV">
+            <td id="manv">@item.MANV</td>
+            <td id="hoten">@item.HOTEN</td>
+            <td id="sdt">@item.SDT</td>
+            <td id="pass">@item.PASSNV</td>
+            <td id="diachi">@item.DIACHI</td>
+            <td id="quyen">@item.QUYEN</td>
+            <td id="thaotac">
+                <div style="color: red;text-decoration: underline" onclick="DeleteUser('@item.IDNV','@item.HOTEN')">Xóa</div>
+                <div style="color: blue;text-decoration: underline" onclick="PushInf('@item.IDNV', '@item.MANV','@item.HOTEN', '@item.SDT', '@item.PASSNV', '@item.DIACHI', '@item.QUYEN')">Sửa</div>
+            </td>
+        </tr>
+    }
+</table>
+<h2 id="title">Thêm mới Nhân viên</h2>
+<input type="text" id="txtMaNV" class="formadd" placeholder="Nhập mã nhân viên" />
+<br />
+<input type="text" id="txtHoTen" class="formadd" placeholder="Nhập họ tên nhân viên" />
+<br />
+<input type="text" id="txtSDT" class="formadd" placeholder="Nhập số điện thoại nhân viên" />
+<br />
+<input type="password" id="txtPassW" class="formadd" placeholder="Nhập mật khẩu nhân viên" />
+<br />
+<input type="password" id="txtRePassW" class="formadd" placeholder="Nhập lại mật khẩu" />
+<br />
+<input type="text" id="txtDiaChi" class="formadd" placeholder="Nhập địa chỉ nhân viên" />
+<br />
+<input type="text" id="txtQuyen" class="formadd" placeholder="Nhập quyền nhân viên" />
+<br />
+<div style="border: 3px solid #000000; padding:5px; border-radius:5px; width: max-content" onclick="ChangeMode()">Thêm mới/Sửa</div>
+<p id="message" style="color: red; padding:5px; border:1px solid #4cff00; display:none; width: max-content "></p>
+<script>
+    var flag = false;
+    var EditID = '';
+    //Thêm mới User vào CSDL
+    function AddNewUser() {
+        //Kiểm tra các trường dữ liệu
+        var MaNV = $('#txtMaNV').val();
+        var HoTen = $('#txtHoTen').val();
+        var SDT = $('#txtSDT').val();
+        var Pass = $('#txtPassW').val();
+        var RePass = $('#txtRePassW').val();
+        var DiaChi = $('#txtDiaChi').val();
+        var Quyen = $('#txtQuyen').val();
+        if (MaNV == '' || HoTen == '' || SDT == '' || RePass == '' || Pass == '' || DiaChi == '' || Quyen == '') {
+            $('#message').html("Vui lòng nhập đầy đủ thông tin !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        else if (RePass != Pass) {
+            $('#message').html("Mật khẩu nhập lại không khớp. Vui lòng nhập lại !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        //Sử dụng AJAX
+        var form = new FormData();
+        form.append("MANV", MaNV);
+        form.append("HOTEN", HoTen);
+        form.append("SDT", SDT);
+        form.append("PASSNV", Pass);
+        form.append("DIACHI", DiaChi);
+        form.append("QUYEN", Quyen);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','@Request.Url.Scheme://@Request.Url.Host:44300/Page/AddUser', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var content = xhr.responseText;
+                var json_content = JSON.parse(content);
+                if (json_content.Data.status == "OK") {
+                    //Thêm dữ liệu lên giao diện
+                    var tr = '<tr><td>' + MaNV + '</td><td>' + HoTen + '</td><td>' + SDT + '</td><td>' + Pass + '</td><td>' + DiaChi + '</td><td>' + Quyen + '</td><td>' + $("#thaotac").html() +'</td></tr>';
+                    $('#UserList').append(tr);
+                    //Thông báo khi thêm thành công
+                    $('#message').html("Thêm mới thành công !").css({ 'border-color': 'green', 'color': 'green', 'display': 'block' });
+                    //Xóa trắng form
+                    $('#txtMaNV').val('');
+                    $('#txtHoTen').val('');
+                    $('#txtSDT').val('');
+                    $('#txtPassW').val('');
+                    $('#txtRePassW').val('');
+                    $('#txtDiaChi').val('');
+                    $('#txtQuyen').val('');
+                }
+                else {
+                    $('#message').html(json_content).css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+                }
+            }
+        }
+        xhr.send(form);
+    }
+    //Xóa User
+    function DeleteUser(id, name) {
+        if (confirm('Bạn có chắc muốn xóa nhân viên ' + name)) {
+            var form = new FormData();
+            form.append("ID", id);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '@Request.Url.Scheme://@Request.Url.Host:44300/Page/DeleteUser', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var content = xhr.responseText;
+                    var json_content = JSON.parse(content);
+                    if (json_content.Data.status == "OK") {
+                        //Đã xóa thành công
+                        $('#td_'+id).remove();
+                        alert('Xóa nhân viên thành công !')
+                    }
+                }
+                else {
+                    alert('Lỗi :' + json_content.Data.message)
+                }
+            }
+        }
+        xhr.send(form);
+    }
+    function ChangeMode() {
+        if (flag) {
+            SaveEdit();
+        }
+        else {
+            AddNewUser();
+        }
+    }
+    ////Cập nhật User
+    //B1: Đổ dữ liệu lên form để sửa
+    function PushInf(ID,MANV, HOTEN,SDT,PASS,DIACHI,QUYEN) {
+        flag = true;
+        $('#title').html('Sửa Nhân viên');
+        $('#txtMaNV').val(MANV);
+        $('#txtHoTen').val(HOTEN);
+        $('#txtSDT').val(SDT);
+        $('#txtPassW').val(PASS);
+        $('#txtRePassW').val(PASS);
+        $('#txtDiaChi').val(DIACHI);
+        $('#txtQuyen').val(QUYEN);
+        EditID = ID;
+    }
+    //B2: Lưu thay đổi dữ liệu
+    function SaveEdit() {
+        //Kiểm tra các trường dữ liệu
+        var MaNV = $('#txtMaNV').val();
+        var HoTen = $('#txtHoTen').val();
+        var SDT = $('#txtSDT').val();
+        var Pass = $('#txtPassW').val();
+        var RePass = $('#txtRePassW').val();
+        var DiaChi = $('#txtDiaChi').val();
+        var Quyen = $('#txtQuyen').val();
+        if (MaNV == '' || HoTen == '' || SDT == '' || RePass == '' || Pass == '' || DiaChi == '' || Quyen == '') {
+            $('#message').html("Vui lòng nhập đầy đủ thông tin !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        else if (RePass != Pass) {
+            $('#message').html("Mật khẩu nhập lại không khớp. Vui lòng nhập lại !").css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+            return;
+        }
+        //Sử dụng AJAX
+        var form = new FormData();
+        form.append("ID", EditID);
+        form.append("MANV", MaNV);
+        form.append("HOTEN", HoTen);
+        form.append("SDT", SDT);
+        form.append("PASSNV", Pass);
+        form.append("DIACHI", DiaChi);
+        form.append("QUYEN", Quyen);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST','@Request.Url.Scheme://@Request.Url.Host:44300/Page/EditUser', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var content = xhr.responseText;
+                var json_content = JSON.parse(content);
+                if (json_content.Data.status == "OK") {
+                    //Cập nhật hiển thị lên table view
+                    $('#td_' + EditID + ' #manv').html(MaNV);
+                    $('#td_' + EditID + ' #hoten').html(HoTen);
+                    $('#td_' + EditID + ' #sdt').html(SDT);
+                    $('#td_' + EditID + ' #pass').html(Pass);
+                    $('#td_' + EditID + ' #diachi').html(DiaChi);
+                    $('#td_' + EditID + ' #quyen').html(Quyen);
+                    //Thông báo khi cập nhật thành công
+                    $('#message').html("Cập nhật thành công !").css({ 'border-color': 'green', 'color': 'green', 'display': 'block' });
+                    //Xóa trắng form
+                    $('#txtMaNV').val('');
+                    $('#txtHoTen').val('');
+                    $('#txtSDT').val('');
+                    $('#txtPassW').val('');
+                    $('#txtRePassW').val('');
+                    $('#txtDiaChi').val('');
+                    $('#txtQuyen').val('');
+                    flag = false;
+                    $('#title').html('Thêm mới Nhân viên');
+                }
+                else {
+                    $('#message').html(json_content).css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+                }
+            }
+        }
+        xhr.send(form);
+    }
+</script>

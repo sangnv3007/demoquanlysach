@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "DeatailBook";
+    Layout = "~/Views/MyLayout/FrontEndLayout.cshtml";
+}
+
+<div class="center_title_bar">Makita 156 MX-VL</div>
+<div class="prod_box_big">
+    <div class="center_prod_box_big">
+        <div class="product_img_big">
+            <a href="javascript:popImage('~/theme/images/big_pic.jpg','Some Title')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="~/theme/images/p3.jpg" alt="" border="0" /></a>
+            <div class="thumbs"> <a href="#" title="header=[Thumb1] body=[&nbsp;] fade=[on]"><img src="~/theme/images/thumb1.jpg" alt="" border="0" /></a> <a href="#" title="header=[Thumb2] body=[&nbsp;] fade=[on]"><img src="~/theme/images/thumb2.jpg" alt="" border="0" /></a> <a href="#" title="header=[Thumb3] body=[&nbsp;] fade=[on]"><img src="~/theme/images/thumb1.jpg" alt="" border="0" /></a> </div>
+        </div>
+        <div class="details_big_box">
+            <div class="product_title_big">Makita 156 MX-VL</div>
+            <div class="specifications">
+                Available: <span class="blue">In stock</span><br />
+                Warranties: <span class="blue">24 months</span><br />
+                Transport: <span class="blue"> delivery services company</span><br />
+                Include :<span class="blue"> TVA</span><br />
+                Description :<span class="blue"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </span><br />
+            </div>
+            <div class="prod_price_big"><span class="reduce">350$</span> <span class="price">270$</span></div>
+            <a href="#" class="prod_buy">add to cart</a> <a href="#" class="prod_compare">compare</a>
+        </div>
+    </div>
+</div>
+<div class="center_title_bar">Xem thêm</div>
+@for (int i = 1; i <= 6; i++)
+{
+    <div class="prod_box">
+        <div class="center_prod_box">
+            <div class="product_title"><a href="#">Makita 156 MX-VL</a></div>
+            <div class="product_img"><a href="#"><img src="~/theme/images/p7.jpg" alt="" border="0" /></a></div>
+            <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>
+        </div>
+        <div class="prod_details_tab"> <a href="#" class="prod_buy">Add to Cart</a> <a href="#" class="prod_details">Details</a> </div>
+    </div>
+}

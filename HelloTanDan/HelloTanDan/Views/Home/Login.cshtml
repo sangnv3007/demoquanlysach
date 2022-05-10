@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/theme/css/admin.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Đăng nhập</label>
+        <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Quên mật khẩu</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <div class="group">
+                    <label for="user" class="label">Username hoặc Email</label>
+                    <input id="user" type="text" class="input">
+                </div>
+                <div class="group">
+                    <label for="pass" class="label">Mật khẩu</label>
+                    <input id="pass" type="password" class="input" data-type="password">
+                </div>
+                <div class="group" onclick="Login()" style="background: blue;border-radius: 10px;text-align: center;padding: 20px; font-size:18px">
+                    Đăng nhập
+                </div>
+                <div class="hr"></div>
+            </div>
+            <div class="for-pwd-htm">
+                <div class="group">
+                    <label for="user" class="label">Username hoăc Email</label>
+                    <input id="user" type="text" class="input">
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" value="Reset Password">
+                </div>
+                <div class="hr"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var isRunning = false;
+    function Login() {
+        if (!isRunning) {
+            isRunning = true;
+            var user = $('#user').val();
+            var pass = $('#pass').val();
+            if (user == '' || pass == '') {
+                alert("Vui lòng nhập tài khoản và mật khẩu !");
+                isRunning = false;
+            }
+            else {
+                var form = new FormData()
+                form.append('user', user);
+                form.append('pass', pass);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'CheckLogin', true);
+                xhr.timeout = 30000;
+                xhr.ontimeout = function () {
+                    alert("Có khả năng mạng xảy ra vấn đề. F5 để thử lại !");
+                    isRunning = false;
+                }
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var content = xhr.responseText;
+                        var json = JSON.parse(content);
+                        if (json.Data.status == "OK") {
+                            window.location = 'https://localhost:44300/Admin/CategoryManagement';
+                        }
+                        else {
+                            alert("Sai tài khoản hoặc mật khẩu !");
+                        }
+                        isRunning = false;
+                    }
+                }
+                xhr.send(form);
+            }
+        }
+    }
+</script>
+
+

@@ -1,0 +1,15 @@
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DataBaseIO1.dll.config
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DataBaseIO1.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DataBaseIO1.pdb
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DBProvider1.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\EntityFramework.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DBProvider1.pdb
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\DBProvider1.dll.config
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\EntityFramework.xml
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\obj\Debug\DataBaseIO1.csprojAssemblyReference.cache
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\obj\Debug\DataBaseIO1.csproj.CoreCompileInputs.cache
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\obj\Debug\DataBaseIO1.csproj.CopyComplete
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\obj\Debug\DataBaseIO1.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\DataBaseIO1\obj\Debug\DataBaseIO1.pdb

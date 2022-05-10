@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@ViewBag.tittle</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <link href="~/theme/css/style.css" rel="stylesheet" />
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="iecss.css" />
+    <![endif]-->
+    <script src="~/theme/js/boxOver.js"></script>
+</head>
+<body>
+    <div id="main_container">
+        <div id="header">
+            <div class="top_right">
+                <div class="languages">
+                    <div class="lang_text">Ngôn ngữ:</div>
+                    <a href="#" class="lang"><img src="~/theme/images/VN-Vietnam-Flag-icon.png" border="0" /></a> <a href="#" class="lang"><img src="~/theme/images/en.gif" alt="" border="0" /></a>
+                </div>
+                <div class="big_banner"> <a href="#"><img src="~/theme/images/Banner-sách_1920_tinified.jpg" alt="" border="0" /></a> </div>
+            </div>
+            <div id="logo"> <a href="#"><img src="https://d1v2hfhsvnke6s.cloudfront.net/Shared/Symbols/books.png" alt="" border="0" width="182" height="85" /></a> </div>
+        </div>
+        <div id="main_content">
+            <div id="menu_tab">
+                <ul class="menu">
+                    <li><a href="~/" class="nav">Trang chủ </a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/Book/ListBook" class="nav">Sách</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="nav">Sách phổ biến</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="nav">Mới phát hành</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="nav">Tin tức</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="nav">Giới thiệu</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="nav">Liên hệ</a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/Home/Login" class="nav" id="login-logout">Đăng nhập</a></li>
+                </ul>
+            </div>
+            <!-- end of menu tab -->
+            <div class="crumb_navigation"> Navigation: <span class="current">Trang chủ</span> </div>
+            <div class="left_content">
+                <div class="title_box">Chuyên mục</div>
+                <ul class="left_menu">
+                    <li class="odd"><a href="#">Sách Kinh Tế</a></li>
+                    <li class="even"><a href="#">Sách Văn Học Nước Ngoài</a></li>
+                    <li class="odd"><a href="#">Sách Văn Học Trong Nước</a></li>
+                    <li class="even"><a href="#">Sách Đời Sống</a></li>
+                    <li class="odd"><a href="#">Sách Thiếu Nhi</a></li>
+                    <li class="even"><a href="#">Sách Phát Triển Bản Thân</a></li>
+                    <li class="odd"><a href="#">Sách Chuyên Ngành</a></li>
+                    <li class="even"><a href="#">Sách Tin Học - Lập Trình</a></li>
+                    <li class="odd"><a href="#">Sách Giáo Khoa - Giáo Trình</a></li>
+                    <li class="even"><a href="#">Sách BlockChain(Mới)</a></li>
+                    <li class="odd"><a href="#">Sách Ngoại Ngữ</a></li>
+                    <li class="even"><a href="#">Sách Mới Phát Hành</a></li>
+                </ul>
+                <div class="title_box">Sách phổ biến</div>
+                <div class="border_box">
+                    <div class="product_title"><a href="#">Đắc Nhân Tâm</a></div>
+                    <div class="product_img"><a href="#"><img src="~/theme/images/image-bookjpg-1.jpg" alt="" border="0" /></a></div>
+                    <div class="prod_price"><span class="reduce">200.000</span> <span class="price">170.000</span></div>
+                </div>
+                <div class="title_box">Nhận thông tin mới nhất</div>
+                <div class="border_box">
+                    <input type="text" name="newsletter" class="newsletter_input" value="Nhập email của bạn..." />
+                    <a href="#" class="join">Gửi</a>
+                </div>
+                <div class="banner_adds"> <a href="#"><img src="~/theme/images/ads2.jpeg" alt="" border="0" /></a> </div>
+            </div>
+            <!-- end of left content -->
+            <div class="center_content">
+                @RenderBody()
+            </div>
+            <!-- end of center content -->
+            <div class="right_content">
+                <div class="title_box">Tìm kiếm</div>
+                <div class="border_box">
+                    <input type="text" name="newsletter" class="newsletter_input" value="Nhập tên sách cần tìm..." />
+                    <a href="#" class="join">Search</a>
+                </div>
+                <div class="title_box">Có gì mới ?</div>
+                <div class="border_box">
+                    <div class="product_title"><a href="#">Nhà Giả Kim</a></div>
+                    <div class="product_img"><a href="#"><img src="~/theme/images/nha-gia-kim.png" alt="" border="0" /></a></div>
+                    <div class="prod_price"><span class="reduce">210.000</span> <span class="price">170.000</span></div>
+                </div>
+                <div class="title_box">Thông tin chi tiết</div>
+                <ul class="left_menu">
+                    <li class="even"><a href="#">Tác giả: Paulo Coelho</a></li>
+                    <li class="odd"><a href="#">Công ty phát hành: Nhã Nam</a></li>
+                    <li class="even"><a href="#">Ngày xuất bản:	2013-10-30</a></li>
+                    <li class="odd"><a href="#">Kích thước:	13 x 20.5 cm</a></li>
+                    <li class="even"><a href="#">Dịch Giả:	Lê Chu Cầu</a></li>
+                    <li class="odd"><a href="#">Loại bìa:	Bìa mềm</a></li>
+                    <li class="even"><a href="#">Số trang:	228</a></li>
+                </ul>
+                <div class="banner_adds"> <a href="#"><img src="~/theme/images/ads1.jpg" alt="" border="0" /></a> </div>
+            </div>
+            <!-- end of right content -->
+        </div>
+        <!-- end of main content -->
+        <div class="footer">
+            <div class="left_footer"> <img src="https://cdn-icons-png.flaticon.com/512/458/458910.png" alt="Dev - Free marketing icons" width="99" height="52" /> </div>
+            <div class="center_footer">
+                Design by sang_nv<br />
+                <a href="http://csscreme.com"><img src="~/theme/images/csscreme.jpg" alt="csscreme" title="csscreme" border="0" /></a><br />
+                <img src="~/theme/images/payment.gif" alt="" />
+            </div>
+            <div class="right_footer"> <a href="#">Trang chủ</a> <a href="#">Sách</a> <a href="#">Giới thiệu</a> <a href="#">Tin tức</a> <a href="#">Liên hệ</a> </div>
+        </div>
+    </div>
+    <!-- end of main_container -->
+</body>
+</html>

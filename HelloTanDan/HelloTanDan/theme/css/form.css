@@ -1,0 +1,83 @@
+h3{
+    margin:0px;
+}
+.popup {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid gray;
+    display: none;
+    border-radius: 8px;
+}
+.popup-book {
+    width: 500px;
+    height: auto;
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid gray;
+    display: none;
+    border-radius: 8px;
+    right: 500px;
+    top: 0;
+}
+.popup-content {
+    height: auto;
+    width: 700px;
+    background: aliceblue;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+.select-form{
+    padding-left:10px;
+}
+.action {
+    margin-top: 10px;
+}
+textarea{
+    margin:10px;
+}
+input {
+    display: block;
+    width: 50%;
+    padding: 8px;
+    border: 2px solid gray;
+    margin: 10px;
+}
+.button-add-category {
+    background: blue;
+    color: white;
+    font-size: 15px;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px;
+    text-decoration:none;
+}
+.button-add-category:hover{
+    color:lightgray;
+    text-decoration:none;
+}
+.button-cancel {
+    background: red;
+    color: white;
+    font-size: 15px;
+    padding: 8px;
+    border-radius: 5px;
+}
+.button-cancel:hover {
+    color: lightgray;
+    text-decoration: none;
+    }
+.icon {
+    display: flex;
+}
+.edit {
+    margin-right: 15px;
+    color: #FFC107;
+}
+.delete {
+    color: #E34724;
+}

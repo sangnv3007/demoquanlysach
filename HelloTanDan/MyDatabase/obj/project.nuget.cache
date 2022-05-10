@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "XtpnvDTtJeuQx60y+fjv5Vd6AaQFxCm9MqLPM18NfPuRz4rR4KWctH5Aq8Gt89SqR/9b6necj1Qh6EBVX+g5hA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sang TL\\source\\repos\\HelloTanDan\\MyDatabase\\MyDatabase.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sang TL\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\Sang TL\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Sang TL\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,5 @@
+C:\Users\Sang TL\source\repos\HelloTanDan\MyDatabase\bin\Debug\netstandard2.0\MyDatabase.deps.json
+C:\Users\Sang TL\source\repos\HelloTanDan\MyDatabase\bin\Debug\netstandard2.0\MyDatabase.dll
+C:\Users\Sang TL\source\repos\HelloTanDan\MyDatabase\obj\Debug\netstandard2.0\MyDatabase.csprojAssemblyReference.cache
+C:\Users\Sang TL\source\repos\HelloTanDan\MyDatabase\obj\Debug\netstandard2.0\MyDatabase.AssemblyInfoInputs.cache
+C:\Users\Sang TL\source\repos\HelloTanDan\MyDatabase\obj\Debug\netstandard2.0\MyDatabase.AssemblyInfo.cs
