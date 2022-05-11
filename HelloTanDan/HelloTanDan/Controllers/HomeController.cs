@@ -5,14 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Dynamic;
 namespace HelloTanDan.Controllers
 {
     public class HomeController : Controller
     {
+        DBIO1 db = new DBIO1();
         public ActionResult Index()
         {
-            return View();
+            dynamic mymodel = new ExpandoObject();
+            mymodel.InfBook = db.GetListOb_Book();
+            mymodel.ListCategory = db.GetListOb_Category();
+            mymodel.GetHotW = db.GetInfBook_MaTL("HOTW");
+            return View(mymodel);
         }
         public ActionResult Login()
         {

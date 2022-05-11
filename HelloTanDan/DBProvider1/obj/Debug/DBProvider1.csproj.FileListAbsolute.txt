@@ -10,3 +10,14 @@ C:\Users\Sang TL\source\repos\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.cspr
 C:\Users\Sang TL\source\repos\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.dll
 C:\Users\Sang TL\source\repos\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.pdb
 C:\Users\Sang TL\source\repos\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.csprojAssemblyReference.cache
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\DBProvider1.dll.config
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\DBProvider1.dll
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\DBProvider1.pdb
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\EntityFramework.dll
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\EntityFramework.xml
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.csproj.CoreCompileInputs.cache
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.csproj.CopyComplete
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.dll
+C:\Users\Sang TL\source\repos\demoquanlysach\HelloTanDan\DBProvider1\obj\Debug\DBProvider1.pdb

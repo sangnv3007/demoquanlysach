@@ -34,7 +34,6 @@ namespace DataBaseIO1
             ////Sử dụng iQuery
             return mydb.NHANVIENs.Where(t => t.IDNV == IDNV).FirstOrDefault();
         }
-        //Lấy tất cả danh sách nhân viên
         public List<NHANVIEN> GetListOb_User()
         {
             ////Khong sử dụng Paramaters
@@ -61,6 +60,11 @@ namespace DataBaseIO1
         public List<SACH> GetListOb_Book()
         {
             return mydb.SACHes.ToList();
+        }
+        //Lấy thông tin sách dựa trên mã thể loại
+        public List<SACH> GetInfBook_MaTL(string MATL)
+        {
+            return mydb.SACHes.Where(i => i.MaTL== MATL).ToList();
         }
         //Thêm bản ghi vào bảng nhân viên khi reload trang
         public void AddUser(string IDNV, string MANV, string HOTEN, string SDT, string PASSNV, string DIACHI, string QUYEN)

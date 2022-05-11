@@ -1,4 +1,4 @@
-﻿@model List<DBProvider1.SACH>
+﻿@model dynamic
 @{
     ViewBag.Title = "BookManagement";
     Layout = "~/Views/MyLayout/BackEndLayout.cshtml";
@@ -31,15 +31,20 @@
                     <div class="select-form">
                         <p><label for="title tentg">Chọn tác giả:</label></p>
                         <select name="TenTG" id="slMaTG" placeholder=" Chọn Mã Tác Giả">
-                            <option value="TG01">TG01</option>
+                            @foreach (DBProvider1.TACGIA tacgia in Model.getTacGia) 
+                            {
+                                <option value="@tacgia.MaTG">@tacgia.MaTG</option>
+                            }
                         </select>
                         <p><label for="tile tentl">Chọn thể loại:</label></p>
                         <select name="TenTL" id="slMaTL" placeholder=" Chọn Mã Thể Loại">
-                            <option value="TL01">TL01</option>
-                            <option value="TL02">TL02</option>
+                            @foreach (DBProvider1.THELOAI theloai in Model.getCategory)
+                            {
+                                <option value="@theloai.MaTL">@theloai.MaTL</option>
+                            }
                         </select>
                     </div>
-                    <input type="text" id="txtNXB" placeholder="Nhập Tên Nhà Xuất Bản" />
+                    <input type="text" id="txtNXB" placeholder="Nhập Ngày Xuất Bản" />
                     <input type="text" id="txtGia" placeholder="Nhập giá bán lẻ" />
                     <input type="text" id="txtGiaKM" placeholder="Nhập giá khuyến mãi" />
                     <textarea id="textarea_image" rows="3" cols="50" placeholder="Nhập link ảnh bìa tại đây..."></textarea>
@@ -54,28 +59,28 @@
     </div>
     <table class="table table-bordered">
         <tr>
-            <th style="width: 40%;">Tên sách</th>
+            <th style="width: 35%;">Tên sách</th>
             <th>Mã tác giả</th>
             <th>Mã thể loại</th>
             <th>Ngày xuất bản</th>
             <th>Giá bán</th>
             <th>Giá khuyến mãi</th>
-            <th>Ảnh bìa</th>
+            <th style="width:20%">Ảnh bìa</th>
             <th>Thao tác</th>
         </tr>
-        @foreach (var item in Model)
+        @foreach (DBProvider1.SACH sach in Model.getAllSach)
         {
-            <tr id="td_@item.MaS">
-                <td id="b_tens">@item.TenS</td>
-                <td id="b_matg">@item.MaTG</td>
-                <td id="b_matl">@item.MaTL</td>
-                <td id="b_nxb">@item.NXB</td>
-                <td id="b_gia">@item.Gia</td>
-                <td id="b_giakm">@item.GIAKM</td>
-                <td id="b_anhbia"><div id="linkimage">@item.ANH</div></td>
+            <tr id="td_@sach.MaS">
+                <td id="b_tens">@sach.TenS</td>
+                <td id="b_matg">@sach.MaTG</td>
+                <td id="b_matl">@sach.MaTL</td>
+                <td id="b_nxb">@sach.NXB</td>
+                <td id="b_gia">@sach.Gia</td>
+                <td id="b_giakm">@sach.GIAKM</td>
+                <td id="b_anhbia"><div id="linkimage">@sach.ANH</div></td>
                 <td class="icon">
-                    <div class="edit" title="Sửa" data-toggle="tooltip" onclick="PushInf('@item.MaS','@item.TenS','@item.MaTG','@item.MaTL','@item.NXB','@item.Gia','@item.GIAKM','@item.ANH')"><i class="material-icons"></i></div>
-                    <div class="delete" title="Xóa" data-toggle="tooltip" onclick="DelCategory('@item.MaS','@item.TenS')"><i class="material-icons"></i></div>
+                    <div class="edit" title="Sửa" data-toggle="tooltip" onclick="PushInf('@sach.MaS','@sach.TenS','@sach.MaTG','@sach.MaTL','@sach.NXB','@sach.Gia','@sach.GIAKM','@sach.ANH')"><i class="material-icons"></i></div>
+                    <div class="delete" title="Xóa" data-toggle="tooltip" onclick="DelBook('@sach.MaS','@sach.TenS')"><i class="material-icons"></i></div>
                 </td>
             </tr>
         }
@@ -124,7 +129,7 @@
                 if (json_content.Data.status == "OK") {
                     //Thêm dữ liệu lên giao diện
                     var action = `<div class="edit" title="Sửa" data-toggle="tooltip" onclick="PushInf('${json_content.Data.strMAS}','${TenS}','${MaTG}','${MaTL}','${NXB}','${Gia}','${GiaKM}','${LinkImage}')"><i class="material-icons"></i></div><div class="delete" title="Xóa" data-toggle="tooltip" onclick="DelCategory('${json_content.Data.strMAS}','${TenS}')"><i class="material-icons"></i></div>`;
-                    var row = `<tr id="td_${json_content.Data.strMAS}"><td>${TenS}</td><td></td><td>${MaTG}</td><td>${MaTL}</td><td>${NXB}</td><td>${GiaKM}</td><td>${LinkImage}</td><td class="icon">${action}</td></tr>`;
+                    var row = `<tr id="td_${json_content.Data.strMAS}"><td>${TenS}</td><td>${MaTG}</td><td>${MaTL}</td><td>${NXB}</td><td>${GiaKM}</td><td "b_anhbia"><div id="linkimage">${LinkImage}</div></td><td class="icon">${action}</td></tr>`;
                     $('table').append(row);
                     //Thông báo khi thêm thành công
                     alert("Thêm sách thành công !");
@@ -144,7 +149,7 @@
     }
     //***Cập nhật sách***
     //Mở form sửa và Đổ dữ liệu lên form để sửa
-    function PushInf(MaS,TenS,MaTG, MaTL,NXB,Gia,GiaKM,LinkImage) {
+    function PushInf(MaS, TenS, MaTG, MaTL, NXB, Gia, GiaKM, LinkImage) {
         flag = true;
         document.querySelector(".popup-book").style.display = "flex";
         $('#title').html('Sửa Thông Tin Sách');
@@ -220,6 +225,29 @@
                 }
                 else {
                     $('#message').html(json_content).css({ 'border-color': 'red', 'color': 'red', 'display': 'block' });
+                }
+            }
+        }
+        xhr.send(form);
+    }
+    function DelBook(mas, tens) {
+        if (confirm('Bạn có chắc muốn xóa sách ' + tens)) {
+            var form = new FormData();
+            form.append("MAS", mas);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'DelBooks', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var content = xhr.responseText;
+                    var json_content = JSON.parse(content);
+                    if (json_content.Data.status == "OK") {
+                        //Đã xóa thành công
+                        $('#td_' + mas).remove();
+                        alert('Xóa thể loại sách thành công !')
+                    }
+                }
+                else {
+                    alert('Lỗi :' + json_content.Data.message)
                 }
             }
         }

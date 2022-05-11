@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Dynamic;
 namespace HelloTanDan.Controllers
 {
     public class AdminController : Controller
@@ -22,8 +22,11 @@ namespace HelloTanDan.Controllers
         public ActionResult BookManagement()
         {
             Check();
-            List<SACH> list = db.GetListOb_Book();
-            return View(list);
+            dynamic mymodel = new ExpandoObject();
+            mymodel.getAllSach = db.GetListOb_Book();
+            mymodel.getCategory = db.GetListOb_Category();
+            mymodel.getTacGia = db.GetListOb_AuThor();
+            return View(mymodel);
         }
         public ActionResult CategoryManagement()
         {
@@ -257,6 +260,43 @@ namespace HelloTanDan.Controllers
                     b.Gia = Convert.ToDouble(GIA);
                     b.GIAKM = Convert.ToDouble(GIAKM);
                     b.ANH = LINKIMAGE;
+                    db.Save();
+                    js.Data = new
+                    {
+                        status = "OK"
+                    };
+                }
+            }
+            return Json(js, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult DelBooks(FormCollection data)
+        {
+            string MAS = data["MAS"];
+            JsonResult js = new JsonResult();
+            if (String.IsNullOrEmpty(MAS))
+            {
+                js.Data = new
+                {
+                    status = "ERROR",
+                    message = "Không thế bỏ trống dữ liệu"
+                };
+
+            }
+            else
+            {
+                DBIO1 db = new DBIO1();
+                SACH b = db.GetOb_Book(MAS);
+                if (b == null)
+                {
+                    js.Data = new
+                    {
+                        status = "ERORR",
+                        message = "Dữ liệu không tồn tại !"
+                    };
+                }
+                else
+                {
+                    db.Delete_GUI(b);
                     db.Save();
                     js.Data = new
                     {

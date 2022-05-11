@@ -1,4 +1,4 @@
-﻿@model DBProvider1.NHANVIEN
+﻿@model dynamic
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/MyLayout/FrontEndLayout.cshtml";
@@ -12,28 +12,28 @@
     </div>
 </div>
 <div class="center_title_bar">Sách mới nhất</div>
-@for (int i = 1; i <= 6; i++)
+@foreach (DBProvider1.SACH sach in Model.InfBook)
 {
     <div class="prod_box">
         <div class="center_prod_box">
-            <div class="product_title"><a href="#">Đắc Nhân Tâm</a></div>
-            <div class="product_img"><a href="#"><img src="~/theme/images/image-bookjpg-1.jpg" alt="" border="0" /></a></div>
-            <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>
+            <div class="product_title"><a href="#">@sach.TenS</a></div>
+            <div class="product_img"><a href="#"><img src="@sach.ANH" alt="" border="0" /></a></div>
+
+            <div class="prod_price"><span class="reduce">@sach.Gia</span> <span class="price">@sach.GIAKM</span></div>
         </div>
         <div class="prod_details_tab"> <a href="#" class="prod_buy">Yêu thích</a> <a href="~/Book/DeatailBook" class="prod_details">Chi tiết</a> </div>
-
     </div>
 }
-<div class="center_title_bar">Có thể bạn thích</div>
-@for (int i = 1; i <= 3; i++)
+<div class="center_title_bar">Sách HOT trong tuần !</div>
+@foreach (DBProvider1.SACH sach in Model.GetHotW)
 {
-<div class="prod_box">
-    <div class="center_prod_box">
-        <div class="product_title"><a href="#">Nhà Giả Kim</a></div>
-        <div class="product_img"><a href="#"><img src="~/theme/images/nha-gia-kim.png" alt="" border="0" /></a></div>
-        <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>
+    <div class="prod_box">
+        <div class="center_prod_box">
+            <div class="product_title"><a href="#">@sach.TenS</a></div>
+            <div class="product_img"><a href="#"><img src="@sach.ANH" alt="" border="0" /></a></div>
+            <div class="prod_price"><span class="reduce">@sach.Gia</span> <span class="price">@sach.GIAKM</span></div>
+        </div>
+        <div class="prod_details_tab"> <a href="#" class="prod_buy">Yêu thích</a> <a href="#" class="prod_details">Chi Tiết</a> </div>
     </div>
-    <div class="prod_details_tab"> <a href="#" class="prod_buy">Yêu thích</a> <a href="#" class="prod_details">Chi Tiết</a> </div>
-</div>
 }
 
